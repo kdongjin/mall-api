@@ -32,6 +32,7 @@ public class Product {
 	private String pdesc;
 
 	private boolean delFlag;
+	
 	public void changeDel(boolean delFlag) {
 		this.delFlag = delFlag;
 	}

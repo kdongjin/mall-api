@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +35,7 @@ public class ProductController {
 	private final CustomFileUtil fileUtil;
 
 	@PostMapping("/api/products")
-	public Map<String, Long> insert(ProductDTO productDTO) {
+	public Map<String, Long> insert(ProductDTO productDTO) throws InterruptedException {
 		log.info("rgister: " + productDTO);
 		List<MultipartFile> files = productDTO.getFiles();
 
@@ -44,6 +45,7 @@ public class ProductController {
 
 		log.info(uploadFileNames);
 
+		Thread.sleep(3000);
 		// 서비스 호출
 		Long pno = productService.insert(productDTO);
 		return Map.of("result", pno);
@@ -62,6 +64,7 @@ public class ProductController {
 		return Map.of("RESULT", "SUCCESS");
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@GetMapping("/api/products/list")
 	public PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO) {
 		log.info("list............." + pageRequestDTO);
@@ -70,6 +73,7 @@ public class ProductController {
 
 	@GetMapping("/api/products/{pno}")
 	public ProductDTO read(@PathVariable(name = "pno") Long pno) {
+		
 		return productService.select(pno);
 	}
 

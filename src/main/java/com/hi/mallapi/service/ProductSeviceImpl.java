@@ -111,6 +111,7 @@ public class ProductSeviceImpl implements ProductService {
 		product.changeName(productDTO.getPname());
 		product.changeDesc(productDTO.getPdesc());
 		product.changePrice(productDTO.getPrice());
+		product.changeDel(productDTO.isDelFlag());
 
 		// upload File -- clear first
 		product.clearList();
