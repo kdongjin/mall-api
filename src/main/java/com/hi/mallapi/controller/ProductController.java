@@ -45,7 +45,7 @@ public class ProductController {
 
 		log.info(uploadFileNames);
 
-		Thread.sleep(3000);
+		//Thread.sleep(3000);
 		// 서비스 호출
 		Long pno = productService.insert(productDTO);
 		return Map.of("result", pno);
