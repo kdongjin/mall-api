@@ -64,7 +64,7 @@ public class ProductController {
 		return Map.of("RESULT", "SUCCESS");
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	//@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@GetMapping("/api/products/list")
 	public PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO) {
 		log.info("list............." + pageRequestDTO);
